@@ -2,14 +2,13 @@ from PIL import Image
 import os
 
 def preload():
-    
-    ruta_carpeta = "\institutodc01\d48044935\pesi y julio\Guia mapa de bits\ej7\ImagenesFiltradas"
+    ruta_carpeta = "\\institutodc01\d48044935\pesi y julio\Guia mapa de bits\ej7"
     if not os.path.exists(ruta_carpeta):
         os.makedirs(ruta_carpeta)
         
     ruta_imagen = input("Ingrese ruta de la imagen: ")
-    img = Image.open(ruta_imagen)
-    return img
+    img = Image.open(ruta_imagen).convert("RGB")
+    return img, ruta_carpeta
 
 def setup():
     img, ruta_carpeta = preload()
