@@ -1,17 +1,16 @@
 from PIL import Image
 import os
 
-def preload():
-    ruta_carpeta = "\\institutodc01\d48044935\pesi y julio\Guia mapa de bits\ej7"
+def Blanco_y_negro():
+    #Creo la nueva carpeta
+    ruta_carpeta = "ImagenesFiltradas"
     if not os.path.exists(ruta_carpeta):
-        os.makedirs(ruta_carpeta)
-        
+        os.mkdir(ruta_carpeta)
+    
     ruta_imagen = input("Ingrese ruta de la imagen: ")
-    img = Image.open(ruta_imagen).convert("RGB")
-    return img, ruta_carpeta
+    img = Image.open(ruta_imagen)
 
-def setup():
-    img, ruta_carpeta = preload()
+    #Creo el filtro ByN
     width, height = img.size
     
     for y in range(height):
@@ -22,9 +21,11 @@ def setup():
 
     img.show()
     
-    nombre_imagen = os.path.basename(img)
-    nombre_imagen_sin_extension = os.path.splitext(nombre_imagen)
-    ruta_imagen_guardada = os.path.join(ruta_carpeta, nombre_imagen_sin_extension + ".jpg")
+    #Guardo la nueva imagen
+    nombre_imagen = os.path.basename(os.path.basename(ruta_imagen))
+    nombre_imagen_sin_extension = os.path.splitext(nombre_imagen)[0]
+    ruta_imagen_guardada = os.path.join(ruta_carpeta, nombre_imagen_sin_extension + "_blancoynegro_.jpg")
     img.save(ruta_imagen_guardada)
         
-setup()
+Blanco_y_negro()
+
