@@ -10,7 +10,7 @@ def Blanco_y_negro():
     ruta_imagen = input("Ingrese ruta de la imagen: ")
     img = Image.open(ruta_imagen)
 
-    #Creo el filtro ByN
+    #Aplicamos el filtro ByN
     width, height = img.size
     
     for y in range(height):
@@ -26,6 +26,8 @@ def Blanco_y_negro():
     nombre_imagen_sin_extension = os.path.splitext(nombre_imagen)[0]
     ruta_imagen_guardada = os.path.join(ruta_carpeta, nombre_imagen_sin_extension + "_blancoynegro_.jpg")
     img.save(ruta_imagen_guardada)
-        
+    print(f"Imagen Blanco Y Negro guardada en: {ruta_imagen_guardada}")
+   
 Blanco_y_negro()
+
 
