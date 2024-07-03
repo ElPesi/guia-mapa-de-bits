@@ -1,12 +1,20 @@
-
 from PIL import Image
+import os
 
-def gaussiano(img):
-    img = img.copy()  
-    pixels = img.load()  
+def gaussiano():
+    #Creo la nueva carpeta
+    ruta_carpeta = "ImagenesFiltradas"
+    if not os.path.exists(ruta_carpeta):
+        os.mkdir(ruta_carpeta)
 
+    ruta_imagen = input("Ingrese la ruta de la imagen: ")
+    img = Image.open(ruta_imagen)
+    
     width, height = img.size
+    
+    pixels = img.load()
 
+    # Aplicamos el filtro gaussiano
     for y in range(1, height - 1):
         for x in range(1, width - 1):
             totalPixels = 0
@@ -14,6 +22,7 @@ def gaussiano(img):
             totalG = 0
             totalB = 0
 
+            # Sumamos los valores de los píxeles vecinos
             for j in range(-1, 2):
                 for i in range(-1, 2):
                     auxX = x + i
@@ -29,22 +38,16 @@ def gaussiano(img):
             totalG //= totalPixels
             totalB //= totalPixels
 
-            pixels[x, y] = (totalR, totalG, totalB)
+            img.putpixel((x, y), (totalR, totalG, totalB))
 
-    return img
-
-def main():
-    # Cargar la imagen
-    img = Image.open("marcos.jg")
-
-    # Aplicar el filtro gaussiano
-    img_gaussiano = gaussiano(img)
-
-    # Mostrar la imagen original y la imagen filtrada
+    
     img.show()
-    img_gaussiano.show()
 
-    # Guardar la imagen filtrada
-    img_gaussiano.save("marcos_gaussiano.jpg")
-
-main()
+    # Guardar la imagen
+    nombre_imagen = os.path.basename(os.path.basename(ruta_imagen))
+    nombre_imagen_sin_extension = os.path.splitext(nombre_imagen)[0]
+    ruta_imagen_guardada = os.path.join(ruta_carpeta, nombre_imagen_sin_extension + "_gaussiano_.jpg")
+    img.save(ruta_imagen_guardada)
+    print(f"Imagen filtrada gaussiano guardada en: {ruta_imagen_guardada}")
+    
+gaussiano()
