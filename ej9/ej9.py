@@ -2,16 +2,15 @@ from PIL import Image
 import os
 
 def pixelator():
-    # Crear la carpeta para las imágenes filtradas si no existe
+    
+    #Creo la nueva carpeta
     ruta_carpeta = "ImagenesFiltradas"
     if not os.path.exists(ruta_carpeta):
         os.mkdir(ruta_carpeta)
          
     ruta_imagen = input("Ingrese la ruta de la imagen: ")
     
-    # Cargar la imagen
     img = Image.open(ruta_imagen)
-  
     width, height = img.size
     
     # Tamaño del píxel (resolución) para el efecto pixelado
@@ -33,18 +32,13 @@ def pixelator():
     
     img.show()
     
-    # Guardar la imagen filtrada con un nombre apropiado
-    nombre_imagen = os.path.basename(ruta_imagen)
-    nombre_sin_extension, extension = os.path.splitext(nombre_imagen)
-    nombre_guardado = f"{nombre_sin_extension}Pixelated{extension}"
-    ruta_imagen_guardada = os.path.join(ruta_carpeta, nombre_guardado)
+    # Guardar la imagen
+    nombre_imagen = os.path.basename(os.path.basename(ruta_imagen))
+    nombre_imagen_sin_extension = os.path.splitext(nombre_imagen)[0]
+    ruta_imagen_guardada = os.path.join(ruta_carpeta, nombre_imagen_sin_extension + "_Pixelator_.jpg")
     img.save(ruta_imagen_guardada)
     print(f"Imagen pixelada guardada en: {ruta_imagen_guardada}")
     
-
-# Llamar a la función para ejecutar el script
 pixelator()
 
-
-    
     
